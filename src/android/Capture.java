@@ -258,6 +258,7 @@ public class Capture extends CordovaPlugin {
             !PermissionHelper.hasPermission(this, Manifest.permission.CAMERA);
 
         if (needExternalStoragePermission || needCameraPermission) {
+            LOG.d(LOG_TAG, "captureImage: needExternalStoragePermission=" + needExternalStoragePermission + " needCameraPermission=" + needCameraPermission);
             if (needExternalStoragePermission && needCameraPermission) {
                 PermissionHelper.requestPermissions(this, req.requestCode, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA});
             } else if (needExternalStoragePermission) {
@@ -266,9 +267,10 @@ public class Capture extends CordovaPlugin {
                 PermissionHelper.requestPermission(this, req.requestCode, Manifest.permission.CAMERA);
             }
         } else {
+            LOG.d(LOG_TAG, "captureImage: else");
             // Save the number of images currently on disk for later
             this.numPics = queryImgDB(whichContentStore()).getCount();
-
+            LOG.d(LOG_TAG, "captureImage: numPics=" + this.numPics);
             Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
             ContentResolver contentResolver = this.cordova.getActivity().getContentResolver();
