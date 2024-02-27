@@ -250,6 +250,7 @@ public class Capture extends CordovaPlugin {
      * Sets up an intent to capture images.  Result handled by onActivityResult()
      */
     private void captureImage(Request req) {
+        LOG.d(LOG_TAG, "captureImage: " + req.toString());
         boolean needExternalStoragePermission =
             !PermissionHelper.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
@@ -430,6 +431,7 @@ public class Capture extends CordovaPlugin {
      * @throws IOException
      */
     private JSONObject createMediaFile(Uri data) {
+        LOG.d(LOG_TAG, "createMediaFile: " + data.toString());
         File fp = webView.getResourceApi().mapUriToFile(data);
         JSONObject obj = new JSONObject();
 
